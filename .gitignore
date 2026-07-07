@@ -1,0 +1,29 @@
+# Build output
+/build/
+/out/
+*.class
+*.jar
+
+# Platform SDK jars (not for distribution)
+/libs/
+
+# IDE
+/.idea/
+/.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# Logs
+*.log
+
+# Temp
+/tmp/

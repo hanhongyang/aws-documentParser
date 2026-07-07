@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app xmlns="http://www.actionsoft.com.cn/app">
+    <name>附件解析服务</name>
+    <version>1.0.0</version>
+    <buildNo>1</buildNo>
+    <developer id="dev-team" tablePrefix="ATP" url="http://www.actionsoft.com.cn">ActionSoft</developer>
+    <categoryVisible>false</categoryVisible>
+    <description>提供附件文件解析功能，支持读取平台附件并返回文件元数据。可供多个低代码应用通过 ASLP 调用。</description>
+    <details><![CDATA[
+<b>主要功能</b>
+- 解析平台附件：通过 fileId 读取文件并返回文件名、大小等元数据
+- 安全访问：基于 AWS_SID 认证，确保只有授权用户可调用
+- 多应用共享：设计为独立插件应用，供多个 EndUser 应用调用
+
+<b>ASLP 服务列表</b>
+- parseAttachment：解析附件，返回文件元数据
+- （后续扩展）parseInvoice：解析发票附件，提取结构化数据
+
+<b>技术特点</b>
+- 独立 Java 插件应用，不依赖特定低代码应用
+- 使用官方 SDK API：SDK.getBOAPI().getFile(fileId)
+- 符合 AWS PaaS 7.1.GA 插件开发规范
+]]></details>
+    
+    <pluginListener>com.actionsoft.apps.attachment.parser.Plugins</pluginListener>
+    <depend versions="7.0" env="7.1.GA">_platform.runtime</depend>
+    
+    <properties>
+        <property action="readonly" group="服务配置" name="maxFileSize" title="最大文件大小（MB）" type="input" isSystem="false" desc="限制单次解析的文件大小上限">10</property>
+    </properties>
+</app>

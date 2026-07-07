@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.actionsoft.apps.attachment.parser'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // AWS PaaS SDK - 根据实际部署路径调整
+    compileOnly files('libs/aws-sdk-7.1.GA.jar')
+    compileOnly files('libs/aws-infrastructure-common-7.1.GA.jar')
+    compileOnly files('libs/aws-infrastructure-core-7.1.GA.jar')
+
+    // fastjson (平台运行时提供 fastjson-1.2.83.jar)
+    compileOnly files('libs/fastjson-1.2.83.jar')
+    
+    // SLF4J for logging
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+jar {
+    archiveBaseName.set('attachment-parser')
+    from(sourceSets.main.output) {
+        include '**/*.class'
+    }
+}
+
+task copyToPlatform(type: Copy) {
+    dependsOn jar
+    from jar.archiveFile
+    into "E:/中软科/炎黄/app/apps/install/com.actionsoft.apps.attachment.parser/lib"
+    rename { String fileName ->
+        fileName.replace("-${project.version}", "")
+    }
+}
